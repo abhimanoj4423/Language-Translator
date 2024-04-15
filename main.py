@@ -11,7 +11,7 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 type = st.secrets["TYPE"]
 id = st.secrets["ID"]
 
-df = pd.read_excel(os.path.join('data', r'C:\Users\user\Downloads\language.xlsx'), sheet_name='wiki')
+df = pd.read_excel(os.path.join('data', 'language.xlsx'), sheet_name='wiki')
 df.dropna(inplace=True)
 lang = df['name'].to_list()
 langlist = tuple(lang)
