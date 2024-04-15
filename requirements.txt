@@ -1,0 +1,5 @@
+streamlit_mic_recorder==0.0.8
+streamlit
+pandas
+deep_translator
+gtts
