@@ -4,16 +4,72 @@ from deep_translator import GoogleTranslator
 
 from gtts import gTTS
 import base64
-import pandas as pd
-import os
 
-key = st.secrets["KEY"]
+pas = st.secrets["password"]
+gt_key = st.secrets["GT_KEY"]
+smr_key = st.secrets["SMR_KEY"]
 
-df = pd.read_excel(os.path.join('data', r'C:\Users\user\Downloads\language.xlsx'), sheet_name='wiki')
-df.dropna(inplace=True)
-lang = df['name'].to_list()
+speech_langs = {
+    "en": "English",
+    "ar": "Arabic",
+    "as": "Assamese",
+    "bn": "Bengali",
+    "ca": "Catalan",
+    "zh-CN": "Chinese",
+    "hr": "Croatian",
+    "cs": "Czech",
+    "cy": "Welsh",
+    "da": "Danish",
+    "de": "German",
+    "el": "Greek",
+    "eo": "Esperanto",
+    "es": "Spanish",
+    "et": "Estonian",
+    "fi": "Finnish",
+    "fr": "French",
+    "gu": "Gujarati",
+    "hi": "Hindi",
+    "hu": "Hungarian",
+    "id": "Indonesian",
+    "is": "Icelandic",
+    "it": "Italian",
+    "ja": "Japanese",
+    "kn": "Kannada",
+    "ko": "Korean",
+    "la": "Latin",
+    "lv": "Latvian",
+    "mk": "Macedonian",
+    "ml": "Malayalam",
+    "mn": "Mongolian",
+    "mr": "Marathi",
+    "ne": "Nepali",
+    "nl": "Dutch",
+    "no": "Norwegian",
+    "pa": "Punjabi",
+    "pl": "Polish",
+    "pt": "Portuguese",
+    "ro": "Romanian",
+    "ru": "Russian",
+    "sa": "Sanskrit",
+    "si": "Sinhala",
+    "sk": "Slovak",
+    "sr": "Serbian",
+    "su": "Sundanese",
+    "sv": "Swedish",
+    "ta": "Tamil",
+    "te": "Telugu",
+    "th": "Thai",
+    "tk": "Turkmen",
+    "tr": "Turkish",
+    "uk": "Ukrainian",
+    "ur": "Urdu",
+    "vi": "Vietnamese",
+    "yi": "Yiddish"
+}
+
+lang = list(speech_langs.values())
 langlist = tuple(lang)
-langcode = df['iso'].to_list()
+langcode = list(speech_langs.keys())
 
 lang_array = {lang[i]: langcode[i] for i in range(len(langcode))}
 
@@ -23,66 +79,6 @@ with st.sidebar:
     choice = st.sidebar.selectbox('__SELECT LANGUAGE TO BE TRANSLATED INTO__', langlist)
     st.info("The Translator Webapp takes input as the User's speech recording to converting it into text that can be edited for any incorrectly generated words from the audio. The Text is then translated into the user selected language along with the Audio file.")
 
-speech_langs = {
-    "ar": "Arabic",
-    "bg": "Bulgarian",
-    "bn": "Bengali",
-    "bs": "Bosnian",
-    "ca": "Catalan",
-    "cs": "Czech",
-    "cy": "Welsh",
-    "da": "Danish",
-    "de": "German",
-    "el": "Greek",
-    "en": "English",
-    "eo": "Esperanto",
-    "es": "Spanish",
-    "et": "Estonian",
-    "fi": "Finnish",
-    "fr": "French",
-    "gu": "Gujarati",
-    "hi": "Hindi",
-    "hr": "Croatian",
-    "hu": "Hungarian",
-    "hy": "Armenian",
-    "id": "Indonesian",
-    "is": "Icelandic",
-    "it": "Italian",
-    "ja": "Japanese",
-    "jw": "Javanese",
-    "km": "Khmer",
-    "kn": "Kannada",
-    "ko": "Korean",
-    "la": "Latin",
-    "lv": "Latvian",
-    "mk": "Macedonian",
-    "ml": "Malayalam",
-    "mr": "Marathi",
-    "my": "Myanmar (Burmese)",
-    "ne": "Nepali",
-    "nl": "Dutch",
-    "no": "Norwegian",
-    "pl": "Polish",
-    "pt": "Portuguese",
-    "ro": "Romanian",
-    "ru": "Russian",
-    "si": "Sinhala",
-    "sk": "Slovak",
-    "sq": "Albanian",
-    "sr": "Serbian",
-    "su": "Sundanese",
-    "sv": "Swedish",
-    "sw": "Swahili",
-    "ta": "Tamil",
-    "te": "Telugu",
-    "th": "Thai",
-    "tl": "Filipino",
-    "tr": "Turkish",
-    "uk": "Ukrainian",
-    "ur": "Urdu",
-    "vi": "Vietnamese",
-    "zh-CN": "Chinese"
-}
 
 st.subheader("Record your audio")
 st.info("Click on the **Start Recording** button and speak a phrase in the **selected language** in a clear manner. Click __Stop Recording__ and wait until __Speech-to-Text__ is generated before pressing __TRANSLATE__ button.")
@@ -93,7 +89,7 @@ state = st.session_state
 if 'text_received' not in state:
     state.text_received = []
 
-text = speech_to_text(language=lang_array[choice], use_container_width=True, just_once=True, key=None)
+text = speech_to_text(language=lang_array[choice1], use_container_width=True, just_once=True, key=None)
 
 if text:
     state.text_received.append(text)
