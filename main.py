@@ -8,8 +8,6 @@ import pandas as pd
 import os
 
 openai_api_key = st.secrets["OPENAI_API_KEY"]
-type = st.secrets["TYPE"]
-id = st.secrets["ID"]
 
 df = pd.read_excel(os.path.join('data', 'language.xlsx'), sheet_name='wiki')
 df.dropna(inplace=True)
