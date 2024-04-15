@@ -7,7 +7,7 @@ import base64
 import pandas as pd
 import os
 
-openai_api_key = st.secrets["OPENAI_API_KEY"]
+openai_api_key = st.secrets["KEY"]
 
 df = pd.read_excel(os.path.join('data', 'language.xlsx'), sheet_name='wiki')
 df.dropna(inplace=True)
