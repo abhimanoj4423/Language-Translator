@@ -95,7 +95,7 @@ state = st.session_state
 if 'text_received' not in state:
     state.text_received = []
 
-text = speech_to_text(language=lang_array[choice]', use_container_width=True, just_once=True, key=None)
+text = speech_to_text(language=lang_array[choice], use_container_width=True, just_once=True, key=None)
 
 if text:
     state.text_received.append(text)
